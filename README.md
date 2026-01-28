@@ -1,128 +1,58 @@
-💻 Laptop Price Prediction System
-📌 Project Overview
+# Laptop Price Prediction Using Machine Learning Regression
 
-This project is an end-to-end machine learning application that predicts the price of a laptop based on its hardware specifications and features.
-It combines data preprocessing, feature engineering, model training, and an interactive web interface to deliver real-time price predictions.
+## Overview
+This repository presents the implementation of an automated laptop price prediction
+system using machine learning techniques. The proposed framework learns the relationship
+between laptop hardware specifications and their corresponding market prices in a
+supervised regression setting. The trained model is integrated with an interactive
+web-based interface to provide real-time price estimation.
 
-A trained Random Forest Regression model is deployed using Streamlit, allowing users to input laptop configurations and instantly receive an estimated price.
+## Motivation
+Estimating laptop prices accurately is a complex task due to the presence of multiple
+interdependent factors such as brand, processor type, RAM, storage configuration,
+display quality, graphics unit, and operating system. Manual estimation or rule-based
+approaches are often inconsistent. This work explores a machine learning–based solution
+to efficiently model non-linear relationships between features and price.
 
-🎯 Problem Statement
+## Dataset
+- Publicly available laptop specification dataset
+- Includes features such as company, laptop type, RAM, weight, screen size,
+  resolution, touchscreen support, IPS display, CPU brand, GPU brand, storage,
+  and operating system
+- Target variable is laptop price
+- Price values are log-transformed to handle skewness and improve regression stability
 
-Laptop prices depend on multiple interrelated factors such as brand, processor, RAM, storage type, display characteristics, GPU, and operating system.
-Manual price estimation is unreliable due to the non-linear relationships between these features.
+## Methodology
+1. Data cleaning and preprocessing
+2. Feature engineering:
+   - Extraction of screen resolution and computation of Pixels Per Inch (PPI)
+   - Binary encoding of touchscreen and IPS display
+   - Consolidation of CPU brands, GPU brands, and operating systems
+   - Separation of HDD and SSD storage capacities
+3. Categorical feature encoding using one-hot encoding
+4. Regression model training using a pipeline-based approach
+5. Model evaluation using regression performance metrics
 
-Objective:
-To build a robust regression model that accurately predicts laptop prices using historical data and deploy it as an interactive web application.
+## Model
+- Regression Algorithm: Random Forest Regressor
+- Preprocessing: ColumnTransformer with One-Hot Encoding
+- Target Transformation: Logarithmic price scaling
+- End-to-end pipeline used for both training and inference
 
-🧠 Methodology
-1️⃣ Data Preprocessing & Cleaning
+## Results
+- The trained model achieves strong predictive performance with:
+  - High R² score
+  - Low Mean Absolute Error (MAE)
+- Log transformation improves model stability and prediction accuracy
+- Features such as RAM, SSD capacity, CPU brand, and screen PPI significantly
+  influence laptop price prediction
 
-Removed irrelevant columns and duplicates
+## Application
+A Streamlit-based web application allows users to:
+- Select laptop specifications such as brand, CPU, GPU, and operating system
+- Configure RAM, storage, screen size, and resolution
+- Enable or disable touchscreen and IPS display options
+- Instantly obtain predicted laptop prices based on the trained model
 
-Converted categorical attributes (RAM, Weight, OS, CPU, GPU, etc.) into meaningful numerical representations
-
-Extracted screen resolution into X_res, Y_res, and computed Pixels Per Inch (PPI)
-
-Transformed price using log scaling to handle skewed distributions
-
-2️⃣ Feature Engineering
-
-Binary encoding for:
-
-Touchscreen support
-
-IPS display
-
-Extracted:
-
-CPU brand categories
-
-GPU brand
-
-Consolidated OS classes
-
-Separated memory into HDD and SSD capacities
-
-3️⃣ Model Development
-
-Pipeline-based architecture using:
-
-ColumnTransformer for categorical encoding
-
-OneHotEncoder (drop-first strategy)
-
-Regression Model:
-
-Random Forest Regressor
-
-Tuned hyperparameters for depth, features, and sampling
-
-4️⃣ Model Evaluation
-
-Metrics used:
-
-R² Score
-
-Mean Absolute Error (MAE)
-
-Target variable trained on log(Price) for improved stability and accuracy
-
-The trained pipeline and processed dataset were serialized using pickle for deployment 
-
-ml_project_code
-
-.
-
-🌐 Web Application (Streamlit)
-
-An interactive Streamlit UI allows users to:
-
-Select laptop brand, CPU, GPU, OS
-
-Choose RAM, SSD/HDD capacity
-
-Adjust screen size, resolution, touchscreen, and IPS options
-
-The app dynamically computes PPI and feeds the inputs into the trained pipeline to predict the final laptop price in real time 
-
-App_code
-
-.
-
-📊 Results & Performance
-
-The Random Forest model achieves strong predictive performance with:
-
-High R² score
-
-Low Mean Absolute Error
-
-Log transformation of price significantly improves regression stability
-
-Feature engineering (PPI, CPU/GPU categorization) plays a major role in accuracy
-
-🧪 Technologies Used
-
-Python
-
-Pandas, NumPy
-
-Scikit-learn
-
-Matplotlib, Seaborn
-
-Streamlit
-
-Pickle
-
-🚀 Future Improvements
-
-Hyperparameter tuning using Grid Search / Bayesian Optimization
-
-Model comparison with XGBoost / Gradient Boosting
-
-Deployment using Docker or cloud platforms
-
-Adding confidence intervals to predictions
-
-Enhancing UI with visual explanations (feature importance)
+## Technologies Used
+Python, Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, Streamlit
